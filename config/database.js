@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Cấu hình kết nối với MongoDB
 const connectDB = async () => {
-    const conn = await mongoose.connect("mongodb+srv://KhanhPi:lonelystar1@khanhpi.0fpdm.mongodb.net/WebShop?retryWrites=true&w=majority", {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
