@@ -1,0 +1,45 @@
+Run server: npm run dev
+
+MySQL
+     npm install --save mysql2
+
+Express
+     npm install --save express
+
+
+Các bước tạo Project WebAPI
+Bước 1:
+     npm init
+Bước 2: cài express dotenv
+     npm install --save express dotenv
+Bước 3: cài nodemon
+     npm install --save -D nodemon
+Bước 4: sửa file package.json
+     "scripts": {
+       "test": "NODE_ENV=production node server",
+       "dev": "nodemon server"
+     },
+
+-  Sử dụng Morgan làm middleware
+	npm install --save morgan
+-  Cài đặt mongoose
+	npm install --save mongoose
+	chuỗi kết nối mongoDB: MONGO_URI=mongodb+srv://VuongLong2196:<password>@vuonglong-vdhle.gcp.mongodb.net/<databasename>?retryWrites=true&w=majority
+-  Cài đặt slugify
+	npm install --save slugify
+-  Cài đặt geocoder để phân tích vị trí người dùng gửi lên
+	npm install --save node-geocoder
+-  Cài đặt thư viện để upload ảnh
+	npm install --save express-fileupload
+-  Cài đặt thư viện xác thực người dùng
+	npm install --save jsonwebtoken bcryptjs
+-  Sử dụng cookie
+	npm install --save cookie-parser
+-  Fix Cors
+     npm i cors --save
+
+-  Tìm định dạng cho email: 
+	javascript regex email
+-  Select theo số lượng bản ghi
+     sử dụng hàm limit()
+     https://www.it-swarm-vi.tech/vi/mongodb/lam-cach-nao-de-phan-trang-voi-mongoose-trong-node.js/971238651/
