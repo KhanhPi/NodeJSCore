@@ -8,7 +8,9 @@ const router = express.Router({ mergeParams: true });
 
 // import các phương thức
 const {
-    createRole
+    createRole,
+    getById,
+    getAll
 } = require('../controllers/roles');
 
 // Cấu hình router cho các phương thức
@@ -16,5 +18,9 @@ const {
 // nếu là GET => getCourses
 router.route('/')
     .post(createRole);
+router.route('/')
+    .get(getAll);
+router.route('/:id')
+    .get(getById);
 
 module.exports = router;

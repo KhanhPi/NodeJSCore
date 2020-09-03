@@ -1,25 +1,34 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-const User = require('../models/users');
+const User = require('../models/User');
 
 // @desc    Register user
 // @route   POST /api/auth/register
-exports.register = asyncHandler(async(req, res, next) => {
-    const { name, email, password, role } = req.body;
-    //Create User
-    const user = await User.create({
-        name,
-        email,
-        password,
-        role
-    });
+exports.register = asyncHandler(async (req, res, next) => {
+    var user = new User();
+    user.username = req.body.user.username;
+    user.email = req.body.user.email;
+    user.setPassword(req.body.user.password)
 
-    sendTokenResponse(user, 200, res);
+    user.save().then(function () {
+        return res.json({user: user.toAuthJSON()});
+    }).catch(next);
+
+    // const { name, email, password, role } = req.body;
+    // //Create User
+    // const user = await User.create({
+    //     name,
+    //     email,
+    //     password,
+    //     role
+    // });
+
+    // sendTokenResponse(user, 200, res);
 });
 
 // @desc    Login user
 // @route   POST /api/auth/login
-exports.login = asyncHandler(async(req, res, next) => {
+exports.login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
     // Validate email & password
     if (!email || !password) {
@@ -68,7 +77,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 
 // @desc    Get current logged in user
 // @route   POST /api/auth/me
-exports.getCurrentUser = asyncHandler(async(req, res, next) => {
+exports.getCurrentUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.user.id).populate({
         path: 'role',
         select: 'name'
@@ -83,7 +92,7 @@ exports.getCurrentUser = asyncHandler(async(req, res, next) => {
 
 // @desc    Forgot password
 // @route   POST /api/auth/forgotPassword
-exports.forgotPassword = asyncHandler(async(req, res, next) => {
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
         return next(new ErrorResponse('Not User', 404));

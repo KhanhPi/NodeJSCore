@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
-const User = require('../models/users');
+const User = require('../models/User');
 
 // xác thực khi gọi các api
 exports.protect = asyncHandler(async(req, res, next) => {
@@ -18,7 +18,7 @@ exports.protect = asyncHandler(async(req, res, next) => {
     // kiểm tra token đã tốn tại chưa?
     if (!token) {
         return next(new ErrorResponse('Not authorize to access this route', 401));
-    }
+    } 
 
     try {
         // xác thực token

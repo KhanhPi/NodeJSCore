@@ -1,13 +1,26 @@
-const Role = require('../models/roles');
+const Role = require('../models/Role');
 const asyncHandler = require('../middleware/async');
 
 // @desc    Get Add role
 // @route   POST /api/roles/
-exports.createRole = asyncHandler(async(req, res, next) => {
-    const role = await Role.create(req.body);
+exports.createRole = asyncHandler(async (req, res, next) => {
+    var role = new Role(req.body.role);
+    role.save().then(function () {
+        return res.json({ data: role });
+    }).catch(next);
+})
 
-    res.status(201).json({
-        success: true,
-        data: role
-    });
+
+exports.getById = asyncHandler(async (req, res, next) => {
+    Role.findById(req.params.id).then(function(role) {
+        if (!role) { return res.sendStatus(401); }
+        return res.json({ data: role });
+    }).catch(next);
+})
+
+exports.getAll = asyncHandler(async (req, res, next) => {
+    Role.find().then(function(role) {
+        if (!role) { return res.sendStatus(401); }
+        return res.json({ data: role });
+    }).catch(next);
 })

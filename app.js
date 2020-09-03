@@ -13,7 +13,7 @@ const errorHandler = require('./middleware/error');
 // Router files
 const rtBootcamp = require('./router/bootcamps');
 const rtCourse = require('./router/courses');
-const rtAuth = require('./router/auth');
+const rtAuth = require('./router/users');
 const rtRole = require('./router/roles');
 const rtQuestion = require('./router/questions');
 
@@ -26,7 +26,7 @@ const app = express();
 // Kết nối với database
 var isProduction = process.env.NODE_ENV === 'production';
 //Connect DB    
-// if (!isProduction) {
+// if (!isProduction) { 
 //     connectDB();
 //     console.log("err");
 //     app.use(errorHandler());
@@ -37,7 +37,7 @@ if (!isProduction) {
 
 if (isProduction) {
     mongoose.connect(process.env.MONGODB_URI);
-    console.log("aaaaavvvv")
+    // console.log("aaaaavvvv")
 }
 else {
     connectDB();

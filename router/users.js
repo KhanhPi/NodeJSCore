@@ -4,7 +4,7 @@ const {
     login,
     getCurrentUser,
     forgotPassword
-} = require('../controllers/auth');
+} = require('../controllers/users');
 
 // xác thực token
 const { protect, authorize } = require('../middleware/auth');
