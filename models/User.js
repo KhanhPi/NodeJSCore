@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 var uniqueValidator = require('mongoose-unique-validator');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            'Please add a valid email'
+            'Please add a valid email' 
         ],
         index: true
     },
@@ -28,7 +28,6 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: mongoose.Schema.ObjectId,
         ref: 'Role', // tên export ra ở model
-        required: true
     },
     hash: String,
     salt: String,
@@ -77,9 +76,7 @@ UserSchema.methods.generateJWT = function () {
         id: this._id,
         username: this.username,
         exp: parseInt(exp.getTime() / 1000),
-    }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE
-    })
+    }, process.env.JWT_SECRET)
 }
 
 //Trả về thông tin sau khi đăng nhập
@@ -93,7 +90,8 @@ UserSchema.methods.toAuthJSON = function(){
   };
 // So sánh mật khẩu nhập vào và mật khẩu trong DB
 // trả về true/false
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+UserSchema.methods.matchPassword = async function (enteredPassword ) {
+
     var hash = crypto.pbkdf2Sync(enteredPassword, this.salt, 10000, 512, 'sha512').toString('hex');
     return await bcrypt.compare(hash, this.hash);
 }

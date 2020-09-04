@@ -75,7 +75,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(process.env.LINK_API_BOOTCAMPS, rtBootcamp);
 app.use(process.env.LINK_API_COURSES, rtCourse);
 app.use(process.env.LINK_API_AUTH, rtAuth);
-app.use(process.env.LINK_API_ROLE, rtRole)
+app.use(process.env.LINK_API_ROLE, rtRole) 
 app.use(process.env.LINK_API_QUESTION, rtQuestion)
 
 // Chạy errorHandler (phải đặt chạy sau api)
