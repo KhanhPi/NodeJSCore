@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 // const session = require('express-session');
 // const fileupload = require('express-fileupload');
 const connectDB = require('./config/database');
@@ -13,13 +14,13 @@ const errorHandler = require('./middleware/error');
 // Router files
 const rtBootcamp = require('./router/bootcamps');
 const rtCourse = require('./router/courses');
-const rtAuth = require('./router/users');
+const rtUser = require('./router/users');
 const rtRole = require('./router/roles');
-const rtQuestion = require('./router/questions');
+require('./config/passport');
 
 // Load env
 dotenv.config({ path: './config/config.env' });
-
+ 
 // Create global app object
 const app = express();
 
@@ -74,9 +75,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 // gắn kết với router
 app.use(process.env.LINK_API_BOOTCAMPS, rtBootcamp);
 app.use(process.env.LINK_API_COURSES, rtCourse);
-app.use(process.env.LINK_API_AUTH, rtAuth);
-app.use(process.env.LINK_API_ROLE, rtRole) 
-app.use(process.env.LINK_API_QUESTION, rtQuestion)
+app.use(process.env.LINK_API_USER, rtUser);
+app.use(process.env.LINK_API_ROLE, rtRole);
 
 // Chạy errorHandler (phải đặt chạy sau api)
 // app.use(errorHandler);
